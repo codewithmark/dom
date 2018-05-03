@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<title> s1 - LocalStorage </title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<meta name="description" content=" Easy To Use Library ">
+
+	<meta name="author" content="Code With Mark">
+	<meta name="authorUrl" content="http://codewithmark.com">
+
+	<!--[css/js files > start]-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+	<script src="https://cdn.awesomefunctions.com/awesome-functions.min.js"></script> 
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.0.6/chance.min.js"></script> 
+
+	<!--[css/js files > end]-->
+
+
+	<script src="dom.js"></script> 
+
+	<script type="text/javascript">
+	$(document).ready(function($) 
+	{
+		var menu = ''
+		+'<div class="btn btn-success btn_add"> Add</div>'
+		+'<span style="padding:5px;"> </span>'
+		+'<div class="btn btn-success btn_get"> Get</div>'
+		+'<span style="padding:5px;"> </span>'
+		+'<div class="btn btn-success btn_select"> Select</div>'
+		+'<span style="padding:5px;"> </span>'
+		+'<div class="btn btn-success btn_update"> Update </div>'
+		+'<span style="padding:5px;"> </span>'
+		+'<div class="btn btn-success btn_remove"> Remove </div>'
+		+'<span style="padding:5px;"> </span>'
+		+'';
+		$(document).find('.container_menu').html(menu);
+
+		var page_data = [];
+		for (var i = 1; i < 10; i++) 
+		{
+			page_data.push(
+			{
+				id:i,
+				name:'Mark-'+i,				
+				rec_dt:moment().format('Y-M-D'),
+				rec_dtt:+moment(),
+			})
+		};
+		$('.screen_data').hide();
+		var ele = $('.screen_data');
+	 
+	 
+		console.log('before update ', page_data)
+	
+		$(document).on('click', '.btn_remove', function(event) 
+		{
+			event.preventDefault();
+		 
+			var whereobj = {id:2};
+			var d = dom(page_data).remove(whereobj);
+
+			console.log('remove ', d);
+
+			ele.html(JSON.stringify(d,null,'\t')).show();
+
+		});
+
+		$(document).on('click', '.btn_update', function(event) 
+		{
+			event.preventDefault();
+		 
+			var updateObjval = { name:"mark kumar 007",addr:"86-22 126 street "};
+			var whereobj = {id:2};
+			var d = dom(page_data.slice()).update(updateObjval,whereobj);
+			
+			//var d1 = dom(d1).add(page_data);
+			console.log('update ', d);
+			ele.html(JSON.stringify(d,null,'\t')).show();
+		});
+
+		$(document).on('click', '.btn_select', function(event) 
+		{
+			event.preventDefault();
+		 	var d = dom(page_data).select(['id', 'name']);
+			console.log('select ', d);
+			ele.html(JSON.stringify(d,null,'\t')).show();
+		});
+
+		$(document).on('click', '.btn_get', function(event) 
+		{
+			event.preventDefault();
+			var d1 = [{id:0, mk:'mmmm'}, {id:2,mk:'makr'}]
+
+			var d = dom(page_data).get({id:2, });
+			console.log('get ', d);
+			ele.html(JSON.stringify(d,null,'\t')).show();
+		});
+
+		$(document).on('click', '.btn_add', function(event) 
+		{
+			event.preventDefault();
+			var d11 = [{id:0, mk:'mmmm'}, {id:2,mk:'makr'}]
+
+			var d1 = {id1:0, mk1:'mmmm'};
+
+			var d = dom(page_data).add({id:2,mk:'makr222'});
+			
+			//var d1 = dom(d1).add(page_data);
+
+			console.log('add ', d);
+			ele.html(JSON.stringify(d,null,'\t')).show();
+		});
+		
+	});
+	</script>
+ 
+ 
+</head>
+
+ 
+
+<body> 
+
+<h1 class="text-center">DOM Storage </h1>
+
+<!--[Menu - Start]-->
+<div class="text-center container_menu"></div>
+<!--[Menu - End]-->
+<br><br>
+
+
+
+<!--[Screen Data - Start]-->
+<div class="container">  
+	<pre class="screen_data constainer"></pre>
+</div>
+<!--[Screen Data - End]-->
+ 
+
+
+
+
+</body>
+
+
+
+</html>
